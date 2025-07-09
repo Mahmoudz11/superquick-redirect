@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script>
+    function redirectToAppOrStore() {
+      // Extract vendor ID from URL
+      const vendorId = window.location.pathname.split('/').pop();
+      
+      // Try to open the app
+      window.location.href = `superquick://vendor/${vendorId}`;
+      
+      // If app not installed, redirect to Play Store after delay
+      setTimeout(function() {
+        window.location.href = 'https://play.google.com/store/apps/details?id=com.your.package.name';
+      }, 500);
+    }
+  </script>
+</head>
+<body onload="redirectToAppOrStore()">
+  <p>Redirecting to SuperQuick app...</p>
+</body>
+</html>
