@@ -3,15 +3,17 @@
 <head>
   <script>
     function redirectToAppOrStore() {
-      // Extract vendor ID from URL
       const vendorId = window.location.pathname.split('/').pop();
+      const appUrl = `superquick://vendor/${vendorId}`;
       
-      // Try to open the app
-      window.location.href = `superquick://vendor/${vendorId}`;
+      window.location.href = appUrl;
       
-      // If app not installed, redirect to Play Store after delay
       setTimeout(function() {
-        window.location.href = 'https://play.google.com/store/apps/details?id=com.superquick';
+        if (/Android/i.test(navigator.userAgent)) {
+          window.location.href = 'market://details?id=com.superquick';
+        } else {
+          window.location.href = 'https://play.google.com/store/apps/details?id=com.superquick';
+        }
       }, 500);
     }
   </script>
