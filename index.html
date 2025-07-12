@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <title>SuperQuick Redirect</title>
   <script>
-    function redirectToAppOrStore() {
-      const vendorId = window.location.pathname.split('/').pop();
+    function redirect() {
+      const path = window.location.pathname.split('/');
+      const vendorId = path[path.length - 2]; // Handle trailing slash
       const appUrl = `superquick://vendor/${vendorId}`;
       
       window.location.href = appUrl;
       
       setTimeout(function() {
-        if (/Android/i.test(navigator.userAgent)) {
-          window.location.href = 'market://details?id=com.superquick';
-        } else {
-          window.location.href = 'https://play.google.com/store/apps/details?id=com.superquick';
+        if (document.referrer === "") {
+          if (/Android/i.test(navigator.userAgent)) {
+            window.location.href = 'https://play.google.com/store/apps/details?id=com.superquick';
+          } else {
+            window.location.href = 'https://apps.apple.com/app/idYOUR_APP_STORE_ID';
+          }
         }
       }, 500);
     }
   </script>
 </head>
-<body onload="redirectToAppOrStore()">
-  <p>Redirecting to Super Quick app...</p>
+<body onload="redirect()">
+  <p>Redirecting to SuperQuick app...</p>
 </body>
 </html>
