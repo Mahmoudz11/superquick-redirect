@@ -1,25 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SuperQuick Redirect</title>
   <script>
-    function redirect() {
-      const pathSegments = window.location.pathname.split('/');
-      const vendorId = pathSegments[pathSegments.length - 1] || pathSegments[pathSegments.length - 2];
-      
-      // Try to open app directly first
-      window.location.href = `superquick://vendor/${vendorId}`;
-      
-      // Fallback to Play Store after delay
-      setTimeout(function() {
-        if (document.referrer === "" || !document.referrer.includes('github.io')) {
-          window.location.href = 'https://play.google.com/store/apps/details?id=com.superquick';
-        }
-      }, 800);
-    }
+    // Extract path like /vendor/123
+    const path = window.location.pathname; 
+    window.location.href = `superquick:/${path}`;
+    
+    setTimeout(() => {
+      window.location.href = 'https://play.google.com/store/apps/details?id=com.superquick';
+    }, 800);
   </script>
 </head>
-<body onload="redirect()">
-  <p>Redirecting to SuperQuick app...</p>
+<body>
+  Redirecting to app...
 </body>
 </html>
